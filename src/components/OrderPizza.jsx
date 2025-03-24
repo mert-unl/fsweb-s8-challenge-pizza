@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,10 +14,43 @@ import {
   Form,
   Button,
   ButtonGroup,
+  FormFeedback,
 } from "reactstrap";
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
 
 export default function OrderPizza() {
+  const initialValue = {
+    boyut: "",
+    hamur: "",
+    malzemeler: [],
+    isim: "",
+    adres: "",
+    siparisnotu: "",
+    adet: 1,
+  };
+
+  const [formData, setFormData] = useState(initialValue);
+
+  let basePrice = 85.5;
+  const extraPrice = () => formData.malzemeler.length * 5.0;
+  const totalPrice = () => (basePrice + extraPrice())*formData.adet;
+
+   
+  // Adet değiştiriciler
+
+const arttir = () =>{
+setFormData(oldState => ({
+...oldState , adet:oldState.adet + 1
+}))
+}
+
+const azalt = () =>{
+    if (formData.adet > 1) { 
+setFormData(oldState => ({
+...oldState , adet:oldState.adet - 1
+}))
+}}
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedHamur, setSelectedHamur] = useState("Hamur Kalınlığı");
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -44,17 +77,125 @@ export default function OrderPizza() {
     history.push("/success");
   };
 
+  const [isValid, setIsValid] = useState(false);
+
+  const [errors, setErrors] = useState({
+    boyut: false,
+    hamur: false,
+    malzemeler: false,
+    isim: false,
+    adres: false,
+  });
+
+  const errorMessages = {
+    boyut: "Pizza boyutunu seçmeniz gerekiyor.",
+    hamur: "Pizza hamurunu seçmeyi unuttunuz!",
+    malzemeler: "En az 4, en fazla 10 adet malzeme seçmeniz gerekiyor.",
+    isim: "İsminizi yazmayı unuttunuz!",
+    adres: "Sipariş adresiniz en az 10 karakter olmalı. ",
+  };
+
+
+  
+
+
+
+  const onHandleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (type === "checkbox") {
+      const updatedMalzemeler = checked
+        ? [...formData.malzemeler, name]
+        : formData.malzemeler.filter((i) => i !== name);
+
+      setFormData((prevState) => ({
+        ...prevState,
+        malzemeler: updatedMalzemeler,
+      }));
+
+      //Malzemeler Validasyonu
+      if (updatedMalzemeler.length < 4 || updatedMalzemeler.length > 10) {
+        setErrors((prev) => ({ ...prev, malzemeler: true }));
+      } else {
+        setErrors((prev) => ({ ...prev, malzemeler: false }));
+      }
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+
+    //Validasyonlar
+
+    //Boyut
+    if (name === "boyut") {
+      if (value !== "") {
+        setErrors({ ...errors, boyut: false });
+      }
+    }
+
+    //Hamur
+    if (name === "hamur") {
+      if (value !== "") {
+        setErrors({ ...errors, hamur: false });
+      }
+    }
+
+    //İsim
+    if (name === "isim") {
+      if (value.length < 3) {
+        setErrors({ ...errors, isim: true });
+      } else {
+        setErrors({ ...errors, isim: false });
+      }
+    }
+
+    //Adres
+    if (name === "adres") {
+      if (value.length < 10) {
+        setErrors({ ...errors, adres: true });
+      } else {
+        setErrors({ ...errors, adres: false });
+      }
+    }
+
+    console.log(errors);
+  };
+
+  useEffect(() => {
+    if (
+      formData.isim.length >= 3 &&
+      formData.adres.length >= 10 &&
+      formData.boyut !== "" &&
+      formData.hamur !== "" &&
+      formData.malzemeler.length >= 4 &&
+      formData.malzemeler.length <= 10
+    ) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+    console.log("is form valid:", isValid);
+    console.log(formData);
+    console.log(errors);
+  }, [formData]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!isValid) return;
+  };
+
   return (
     <div className="main">
       <header>
-      <img src="../images/iteration-1-images/logo.svg"/>
-      <nav className="nav">
+        <img src="../images/iteration-1-images/logo.svg" />
+        <nav className="nav">
           <NavLink to="/">Anasayfa</NavLink>
           <span>-</span>
           <NavLink to="">Seçenekler</NavLink>
           <span>-</span>
 
-          <NavLink to="/orderpizza">Sipariş Oluştur</NavLink>
+          <NavLink to="/orderpizza">
+            <b>Sipariş Oluştur</b>
+          </NavLink>
         </nav>
       </header>
 
@@ -62,7 +203,7 @@ export default function OrderPizza() {
         <h3 className="anabaslik">Position Absolute Acı Pizza</h3>
 
         <div className="fiyat">
-          <p className="para">85.50₺</p>
+          <p className="para">{basePrice}₺</p>
 
           <div className="rating">
             <p>4.9</p>
@@ -86,17 +227,36 @@ export default function OrderPizza() {
             </p>
 
             <div className="boyutlar">
-              <Label for="kucuk">
-                <Input id="kucuk" type="radio" name="boyut" value="kucuk" />{" "}
+              <Label for="küçük">
+                <Input
+                  onChange={onHandleChange}
+                  id="küçük"
+                  type="radio"
+                  name="boyut"
+                  value="küçük"
+                />{" "}
                 Küçük
               </Label>
 
               <Label for="orta">
-                <Input id="orta" type="radio" name="boyut" value="orta" /> Orta
+                <Input
+                  onChange={onHandleChange}
+                  id="orta"
+                  type="radio"
+                  name="boyut"
+                  value="orta"
+                />{" "}
+                Orta
               </Label>
 
-              <Label for="buyuk">
-                <Input id="buyuk" type="radio" name="boyut" value="buyuk" />{" "}
+              <Label for="büyük">
+                <Input
+                  onChange={onHandleChange}
+                  id="büyük"
+                  type="radio"
+                  name="boyut"
+                  value="büyük"
+                />{" "}
                 Büyük
               </Label>
             </div>
@@ -112,13 +272,43 @@ export default function OrderPizza() {
                 <DropdownToggle caret> {selectedHamur}</DropdownToggle>
 
                 <DropdownMenu>
-                  <DropdownItem onClick={() => setSelectedHamur("İnce Hamur")}>
+                  <DropdownItem
+                    onClick={() => {
+                      setSelectedHamur("İnce Hamur");
+                      onHandleChange({
+                        target: {
+                          name: "hamur",
+                          value: "İnce Hamur",
+                        },
+                      });
+                    }}
+                  >
                     İnce Hamur
                   </DropdownItem>
-                  <DropdownItem onClick={() => setSelectedHamur("Orta Hamur")}>
+                  <DropdownItem
+                    onClick={() => {
+                      setSelectedHamur("Orta Hamur");
+                      onHandleChange({
+                        target: {
+                          name: "hamur",
+                          value: "Orta Hamur",
+                        },
+                      });
+                    }}
+                  >
                     Orta Hamur
                   </DropdownItem>
-                  <DropdownItem onClick={() => setSelectedHamur("Kalın Hamur")}>
+                  <DropdownItem
+                    onClick={() => {
+                      setSelectedHamur("Kalın Hamur");
+                      onHandleChange({
+                        target: {
+                          name: "hamur",
+                          value: "Kalın Hamur",
+                        },
+                      });
+                    }}
+                  >
                     Kalın Hamur
                   </DropdownItem>
                 </DropdownMenu>
@@ -128,15 +318,34 @@ export default function OrderPizza() {
         </div>
 
         <div>
-          <p className="titles">Ek Malzemeler</p>
+          <p className="titles">
+            Ek Malzemeler<span style={{ color: "red" }}> *</span>
+          </p>
           <p style={{ color: "#5F5F5F" }}>
-            En fazla 10 adet seçebilirsiniz. 5₺
+            En fazla 10 adet seçebilirsiniz. Her biri 5₺.
+            {errors.malzemeler && (
+              <p
+                style={{
+                  color: "#dc3545",
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                }}
+              >
+                {errorMessages.malzemeler}
+              </p>
+            )}
           </p>
 
           <Form className="malzemeler">
             {malzemeler.map((malzeme) => (
               <FormGroup className="malzeme-grup" check inline>
-                <Input id={malzeme} type="checkbox" />
+                <Input
+                  onChange={onHandleChange}
+                  name={malzeme}
+                  value={malzeme}
+                  id={malzeme}
+                  type="checkbox"
+                />
                 <Label for={malzeme} check>
                   <b>{malzeme}</b>
                 </Label>
@@ -145,13 +354,40 @@ export default function OrderPizza() {
           </Form>
         </div>
 
-        <FormGroup>
+        <FormGroup className="notlar">
+          <Label for="isim" className="titles">
+            İsim<span style={{ color: "red" }}> *</span>
+            <Input
+              onChange={onHandleChange}
+              name="isim"
+              id="isim"
+              type="text"
+              invalid={errors.isim}
+              placeholder="İsmini yaz"
+            />
+            {errors.isim && <FormFeedback>{errorMessages.isim}</FormFeedback>}
+          </Label>
+
+          <Label for="adres" className="titles">
+            Adres<span style={{ color: "red" }}> *</span>
+            <Input
+              name="adres"
+              id="adres"
+              onChange={onHandleChange}
+              type="text"
+              invalid={errors.adres}
+              placeholder="Sipariş adresini gir"
+            />
+            {errors.adres && <FormFeedback>{errorMessages.adres}</FormFeedback>}
+          </Label>
+
           <Label for="siparisnotu" className="titles">
             Sipariş Notu
           </Label>
           <Input
+            onChange={onHandleChange}
             id="siparisnotu"
-            name="text"
+            name="siparisnotu"
             placeholder="Siparişine eklemek istediğin bir not var mı?"
             type="text"
           />
@@ -161,9 +397,9 @@ export default function OrderPizza() {
 
         <div className="siparisbottom">
           <ButtonGroup>
-            <Button className="btn">-</Button>
-            <span className="sayi">1</span>
-            <Button className="btn">+</Button>
+            <Button  onClick={azalt} className="btn">-</Button>
+            <span className="sayi">{formData.adet}</span>
+            <Button onClick={arttir} className="btn">+</Button>
           </ButtonGroup>
 
           <div className="siparistoplam">
@@ -172,15 +408,19 @@ export default function OrderPizza() {
 
               <div className="price">
                 <span>Seçimler</span>
-                <span>25.00₺</span>
+                <span>{extraPrice()}₺</span>
               </div>
 
               <div className="price" style={{ color: "#CE2829" }}>
                 <span>Toplam</span>
-                <span>110.50₺</span>
+                <span>{totalPrice()}₺</span>
               </div>
             </div>
-            <Button onClick={succes} className="siparisbutton">
+            <Button
+              disabled={!isValid}
+              onClick={succes}
+              className="siparisbutton"
+            >
               <b>Sipariş Ver</b>
             </Button>
           </div>

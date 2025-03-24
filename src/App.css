@@ -19,7 +19,7 @@ align-items: center;
 
 .successPage div{
 color: white;
-font-family: Barlow, sans-serif;
+font-family: "Barlow";
 justify-content: center;
 font-size: 3rem;
 margin-top: 10rem;
@@ -43,6 +43,7 @@ flex-direction: column;
 .home div{
   text-align: center;
   align-items: center;
+  font-family: "Barlow";
   color: white;
   font-size: 4rem;
   display: flex;
@@ -54,8 +55,10 @@ border: 5px solid white !important;
 padding: 1rem 5rem !important;
 width: 10rem !important;
   border-radius: 2rem  !important;
+  font-family: "Barlow" !important;
+
   color: black !important;
-  font-weight: 550 !important;
+  font-weight: bold !important;
   font-size: 0.9rem !important;
 }
 
@@ -238,4 +241,10 @@ width: 60%;
 
 .s2{
   padding: 2rem;
+}
+
+.notlar{
+  display: flex;
+  flex-direction: column;
+gap: 1rem;
 }
