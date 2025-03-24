@@ -2,6 +2,18 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+
+/*!TODO  
+1) "Sipariş Ver" butonuna tıklandığında, sanki bir sunucuya veri gönderip, yanıt almış gibi davranmalı. Formda eksik bilgi veya hata varsa form disabled olmalı. (hem html hem submit fonksiyonundan gönderim engellenmeli)
+ Submit edince, Axios ile API request sonrası console'a gelen yanıtı basmalısın. https://reqres.in/api/pizza ücretsiz bir mock api servisine, axios ile POST ile kendi datanızı attığınızda, size sanki veritabanına kaydedilmiş gibi id ve tarih ekleyip aynı veriyi geri döner. (SONRASINDA GET ATMIYORUZ)
+ Bu yanıtı gelen response'u, sipariş özeti console'a yazmalı. 
+///Yapıldı
+
+1) Total price 'ı da ekle state'e
+
+2) Testleri yaz
+ */
 
 import {
   Input,
@@ -33,23 +45,25 @@ export default function OrderPizza() {
 
   let basePrice = 85.5;
   const extraPrice = () => formData.malzemeler.length * 5.0;
-  const totalPrice = () => (basePrice + extraPrice())*formData.adet;
+  const totalPrice = () => (basePrice + extraPrice()) * formData.adet;
 
-   
   // Adet değiştiriciler
 
-const arttir = () =>{
-setFormData(oldState => ({
-...oldState , adet:oldState.adet + 1
-}))
-}
+  const arttir = () => {
+    setFormData((oldState) => ({
+      ...oldState,
+      adet: oldState.adet + 1,
+    }));
+  };
 
-const azalt = () =>{
-    if (formData.adet > 1) { 
-setFormData(oldState => ({
-...oldState , adet:oldState.adet - 1
-}))
-}}
+  const azalt = () => {
+    if (formData.adet > 1) {
+      setFormData((oldState) => ({
+        ...oldState,
+        adet: oldState.adet - 1,
+      }));
+    }
+  };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedHamur, setSelectedHamur] = useState("Hamur Kalınlığı");
@@ -73,9 +87,7 @@ setFormData(oldState => ({
 
   const history = useHistory();
 
-  const succes = () => {
-    history.push("/success");
-  };
+  const succes = () => {};
 
   const [isValid, setIsValid] = useState(false);
 
@@ -95,10 +107,20 @@ setFormData(oldState => ({
     adres: "Sipariş adresiniz en az 10 karakter olmalı. ",
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!isValid) return;
 
-  
+    axios
+      .post("https://reqres.in/api/pizza",formData)
+      .then((r) => {
+        console.log("Giden data:", formData); 
+        console.log("Sipariş Özeti:", r.data);
+        history.push("/success");
+      })
+      .catch((e) => console.log(e));
 
-
+  };
 
   const onHandleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -177,11 +199,6 @@ setFormData(oldState => ({
     console.log(formData);
     console.log(errors);
   }, [formData]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!isValid) return;
-  };
 
   return (
     <div className="main">
@@ -397,9 +414,13 @@ setFormData(oldState => ({
 
         <div className="siparisbottom">
           <ButtonGroup>
-            <Button  onClick={azalt} className="btn">-</Button>
+            <Button onClick={azalt} className="btn">
+              -
+            </Button>
             <span className="sayi">{formData.adet}</span>
-            <Button onClick={arttir} className="btn">+</Button>
+            <Button onClick={arttir} className="btn">
+              +
+            </Button>
           </ButtonGroup>
 
           <div className="siparistoplam">
@@ -418,7 +439,8 @@ setFormData(oldState => ({
             </div>
             <Button
               disabled={!isValid}
-              onClick={succes}
+              name="submit"
+              onClick={handleSubmit}
               className="siparisbutton"
             >
               <b>Sipariş Ver</b>
