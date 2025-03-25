@@ -42,43 +42,43 @@ export default function OrderPizza() {
 
   const [formData, setFormData] = useState(initialValue);
 
-
-
   // Adet değiştiriciler
 
   const arttir = () => {
     setFormData((oldState) => {
       const newState = {
-      ...oldState,
-      adet: oldState.adet + 1,
-    }
-  const prices = calculatePrices(newState)
-  return{
-    ...newState,...prices
-  }}
-  );
+        ...oldState,
+        adet: oldState.adet + 1,
+      };
+      const prices = calculatePrices(newState);
+      return {
+        ...newState,
+        ...prices,
+      };
+    });
   };
 
   const azalt = () => {
     if (formData.adet > 1) {
       setFormData((oldState) => {
         const newState = {
-        ...oldState,
-        adet: oldState.adet - 1,
-      }
-    const prices = calculatePrices(newState)
-    return{
-      ...newState,...prices}
-    }
-    );
+          ...oldState,
+          adet: oldState.adet - 1,
+        };
+        const prices = calculatePrices(newState);
+        return {
+          ...newState,
+          ...prices,
+        };
+      });
     }
   };
 
-  const calculatePrices = (formData)=>{
-     const extraPrice = formData.malzemeler.length * 5.0
-     const totalPrice = (formData.basePrice + extraPrice) * formData.adet
-     return {extraPrice,totalPrice}
-  }
+  const calculatePrices = (formData) => {
+    const extraPrice = formData.malzemeler.length * 5.0;
+    const totalPrice = (formData.basePrice + extraPrice) * formData.adet;
+    return { extraPrice, totalPrice };
+  };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedHamur, setSelectedHamur] = useState("Hamur Kalınlığı");
@@ -101,7 +101,6 @@ export default function OrderPizza() {
   ];
 
   const history = useHistory();
-
 
   const [isValid, setIsValid] = useState(false);
 
@@ -126,14 +125,13 @@ export default function OrderPizza() {
     if (!isValid) return;
 
     axios
-      .post("https://reqres.in/api/pizza",formData)
+      .post("https://reqres.in/api/pizza", formData)
       .then((r) => {
-        console.log("Giden data:", formData); 
+        console.log("Giden data:", formData);
         console.log("Sipariş Özeti:", r.data);
         history.push("/success");
       })
       .catch((e) => console.log(e));
-
   };
 
   const onHandleChange = (e) => {
@@ -144,17 +142,17 @@ export default function OrderPizza() {
         ? [...formData.malzemeler, name]
         : formData.malzemeler.filter((i) => i !== name);
 
-        setFormData((prevState) => {
-          const newState = {
-            ...prevState,
-            malzemeler: updatedMalzemeler
-          };
-          const prices = calculatePrices(newState);
-          return {
-            ...newState,
-            ...prices
-          };
-        });
+      setFormData((prevState) => {
+        const newState = {
+          ...prevState,
+          malzemeler: updatedMalzemeler,
+        };
+        const prices = calculatePrices(newState);
+        return {
+          ...newState,
+          ...prices,
+        };
+      });
 
       //Malzemeler Validasyonu
       if (updatedMalzemeler.length < 4 || updatedMalzemeler.length > 10) {
@@ -219,11 +217,7 @@ export default function OrderPizza() {
     console.log("is form valid:", isValid);
     console.log(formData);
     console.log(errors);
-
-
-
   }, [formData]);
-
 
   return (
     <div className="main">
@@ -242,7 +236,6 @@ export default function OrderPizza() {
       </header>
 
       <div className="container">
-
         <h3 className="anabaslik">Position Absolute Acı Pizza</h3>
         <div className="fiyat">
           <p className="para">{formData.basePrice}₺</p>
@@ -262,10 +255,8 @@ export default function OrderPizza() {
           lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir.
         </p>
 
-
-          {/*Seçimler Section */}
+        {/*Seçimler Section */}
         <section className="secimler">
-
           {/*Boyut Section */}
           <section className="boyutSec">
             <p className="titles">
@@ -308,10 +299,8 @@ export default function OrderPizza() {
             </div>
           </section>
 
-
           {/*Hamur Section */}
           <section>
-
             <p className="titles">
               Hamur Seç<span style={{ color: "red" }}> *</span>
             </p>
@@ -364,10 +353,9 @@ export default function OrderPizza() {
               </Dropdown>
             </div>
           </section>
-
         </section>
-          
-          {/*Malzemeler Section */}
+
+        {/*Malzemeler Section */}
         <section>
           <p className="titles">
             Ek Malzemeler<span style={{ color: "red" }}> *</span>
@@ -405,8 +393,7 @@ export default function OrderPizza() {
           </Form>
         </section>
 
-
-          {/*Isim, adres ve not Section*/}
+        {/*Isim, adres ve not Section*/}
         <section className="notlar">
           <Label for="isim" className="titles">
             İsim<span style={{ color: "red" }}> *</span>
@@ -451,8 +438,7 @@ export default function OrderPizza() {
 
         <div style={{ borderBottom: "1px solid gray", margin: "10px 0" }}></div>
 
-
-         {/*Sipariş Fiyatı*/}
+        {/*Sipariş Fiyatı*/}
         <section className="siparisbottom">
           <ButtonGroup>
             <Button onClick={azalt} className="btn">
@@ -488,9 +474,7 @@ export default function OrderPizza() {
             </Button>
           </div>
         </section>
-
       </div>
-      
     </div>
   );
 }
