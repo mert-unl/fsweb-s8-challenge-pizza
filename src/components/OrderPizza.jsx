@@ -5,15 +5,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
 /*!TODO  
-1) "Sipariş Ver" butonuna tıklandığında, sanki bir sunucuya veri gönderip, yanıt almış gibi davranmalı. Formda eksik bilgi veya hata varsa form disabled olmalı. (hem html hem submit fonksiyonundan gönderim engellenmeli)
- Submit edince, Axios ile API request sonrası console'a gelen yanıtı basmalısın. https://reqres.in/api/pizza ücretsiz bir mock api servisine, axios ile POST ile kendi datanızı attığınızda, size sanki veritabanına kaydedilmiş gibi id ve tarih ekleyip aynı veriyi geri döner. (SONRASINDA GET ATMIYORUZ)
- Bu yanıtı gelen response'u, sipariş özeti console'a yazmalı. 
-///Yapıldı
 
-1) Total price 'ı da ekle state'e
 
 2) Testleri yaz
- */
+
+*/
 
 import {
   Input,
@@ -39,31 +35,50 @@ export default function OrderPizza() {
     adres: "",
     siparisnotu: "",
     adet: 1,
+    basePrice: 85.5,
+    extraPrice: 0,
+    totalPrice: 85.5,
   };
 
   const [formData, setFormData] = useState(initialValue);
 
-  let basePrice = 85.5;
-  const extraPrice = () => formData.malzemeler.length * 5.0;
-  const totalPrice = () => (basePrice + extraPrice()) * formData.adet;
+
 
   // Adet değiştiriciler
 
   const arttir = () => {
-    setFormData((oldState) => ({
+    setFormData((oldState) => {
+      const newState = {
       ...oldState,
       adet: oldState.adet + 1,
-    }));
+    }
+  const prices = calculatePrices(newState)
+  return{
+    ...newState,...prices
+  }}
+  );
   };
 
   const azalt = () => {
     if (formData.adet > 1) {
-      setFormData((oldState) => ({
+      setFormData((oldState) => {
+        const newState = {
         ...oldState,
         adet: oldState.adet - 1,
-      }));
+      }
+    const prices = calculatePrices(newState)
+    return{
+      ...newState,...prices}
+    }
+    );
     }
   };
+
+  const calculatePrices = (formData)=>{
+     const extraPrice = formData.malzemeler.length * 5.0
+     const totalPrice = (formData.basePrice + extraPrice) * formData.adet
+     return {extraPrice,totalPrice}
+  }
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedHamur, setSelectedHamur] = useState("Hamur Kalınlığı");
@@ -87,7 +102,6 @@ export default function OrderPizza() {
 
   const history = useHistory();
 
-  const succes = () => {};
 
   const [isValid, setIsValid] = useState(false);
 
@@ -130,10 +144,17 @@ export default function OrderPizza() {
         ? [...formData.malzemeler, name]
         : formData.malzemeler.filter((i) => i !== name);
 
-      setFormData((prevState) => ({
-        ...prevState,
-        malzemeler: updatedMalzemeler,
-      }));
+        setFormData((prevState) => {
+          const newState = {
+            ...prevState,
+            malzemeler: updatedMalzemeler
+          };
+          const prices = calculatePrices(newState);
+          return {
+            ...newState,
+            ...prices
+          };
+        });
 
       //Malzemeler Validasyonu
       if (updatedMalzemeler.length < 4 || updatedMalzemeler.length > 10) {
@@ -198,7 +219,11 @@ export default function OrderPizza() {
     console.log("is form valid:", isValid);
     console.log(formData);
     console.log(errors);
+
+
+
   }, [formData]);
+
 
   return (
     <div className="main">
@@ -217,10 +242,10 @@ export default function OrderPizza() {
       </header>
 
       <div className="container">
-        <h3 className="anabaslik">Position Absolute Acı Pizza</h3>
 
+        <h3 className="anabaslik">Position Absolute Acı Pizza</h3>
         <div className="fiyat">
-          <p className="para">{basePrice}₺</p>
+          <p className="para">{formData.basePrice}₺</p>
 
           <div className="rating">
             <p>4.9</p>
@@ -237,8 +262,12 @@ export default function OrderPizza() {
           lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir.
         </p>
 
-        <div className="secimler">
-          <div className="boyutSec">
+
+          {/*Seçimler Section */}
+        <section className="secimler">
+
+          {/*Boyut Section */}
+          <section className="boyutSec">
             <p className="titles">
               Boyut Seç<span style={{ color: "red" }}> *</span>
             </p>
@@ -277,9 +306,12 @@ export default function OrderPizza() {
                 Büyük
               </Label>
             </div>
-          </div>
+          </section>
 
-          <div>
+
+          {/*Hamur Section */}
+          <section>
+
             <p className="titles">
               Hamur Seç<span style={{ color: "red" }}> *</span>
             </p>
@@ -331,10 +363,12 @@ export default function OrderPizza() {
                 </DropdownMenu>
               </Dropdown>
             </div>
-          </div>
-        </div>
+          </section>
 
-        <div>
+        </section>
+          
+          {/*Malzemeler Section */}
+        <section>
           <p className="titles">
             Ek Malzemeler<span style={{ color: "red" }}> *</span>
           </p>
@@ -369,9 +403,11 @@ export default function OrderPizza() {
               </FormGroup>
             ))}
           </Form>
-        </div>
+        </section>
 
-        <FormGroup className="notlar">
+
+          {/*Isim, adres ve not Section*/}
+        <section className="notlar">
           <Label for="isim" className="titles">
             İsim<span style={{ color: "red" }}> *</span>
             <Input
@@ -379,6 +415,7 @@ export default function OrderPizza() {
               name="isim"
               id="isim"
               type="text"
+              value={formData.isim}
               invalid={errors.isim}
               placeholder="İsmini yaz"
             />
@@ -392,6 +429,7 @@ export default function OrderPizza() {
               id="adres"
               onChange={onHandleChange}
               type="text"
+              value={formData.adres}
               invalid={errors.adres}
               placeholder="Sipariş adresini gir"
             />
@@ -404,15 +442,18 @@ export default function OrderPizza() {
           <Input
             onChange={onHandleChange}
             id="siparisnotu"
+            value={formData.siparisnotu}
             name="siparisnotu"
             placeholder="Siparişine eklemek istediğin bir not var mı?"
             type="text"
           />
-        </FormGroup>
+        </section>
 
         <div style={{ borderBottom: "1px solid gray", margin: "10px 0" }}></div>
 
-        <div className="siparisbottom">
+
+         {/*Sipariş Fiyatı*/}
+        <section className="siparisbottom">
           <ButtonGroup>
             <Button onClick={azalt} className="btn">
               -
@@ -429,12 +470,12 @@ export default function OrderPizza() {
 
               <div className="price">
                 <span>Seçimler</span>
-                <span>{extraPrice()}₺</span>
+                <span>{formData.extraPrice}₺</span>
               </div>
 
               <div className="price" style={{ color: "#CE2829" }}>
                 <span>Toplam</span>
-                <span>{totalPrice()}₺</span>
+                <span>{formData.totalPrice}₺</span>
               </div>
             </div>
             <Button
@@ -446,8 +487,10 @@ export default function OrderPizza() {
               <b>Sipariş Ver</b>
             </Button>
           </div>
-        </div>
+        </section>
+
       </div>
+      
     </div>
   );
 }
