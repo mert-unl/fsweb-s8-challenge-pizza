@@ -4,13 +4,6 @@ import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
-/*!TODO  
-
-
-2) Testleri yaz
-
-*/
-
 import {
   Input,
   Label,
@@ -220,13 +213,13 @@ export default function OrderPizza() {
   }, [formData]);
 
   return (
-    <div className="main">
+    <div className="maindiv">
       <header>
         <img src="../images/iteration-1-images/logo.svg" />
         <nav className="nav">
           <NavLink to="/">Anasayfa</NavLink>
           <span>-</span>
-          <NavLink to="">Seçenekler</NavLink>
+          <NavLink to="/menu">Seçenekler</NavLink>
           <span>-</span>
 
           <NavLink to="/orderpizza">
@@ -235,7 +228,7 @@ export default function OrderPizza() {
         </nav>
       </header>
 
-      <div className="container">
+      <div className="dis">
         <h3 className="anabaslik">Position Absolute Acı Pizza</h3>
         <div className="fiyat">
           <p className="para">{formData.basePrice}₺</p>
@@ -448,15 +441,11 @@ export default function OrderPizza() {
         {/*Sipariş Fiyatı*/}
         <section className="siparisbottom">
           <ButtonGroup>
-            <Button onClick={azalt}
-                          data-cy="azalt"
-            className="btn">
+            <Button onClick={azalt} data-cy="azalt" className="btn">
               -
             </Button>
             <span className="sayi">{formData.adet}</span>
-            <Button onClick={arttir}
-                          data-cy="arttır"
-            className="btn">
+            <Button onClick={arttir} data-cy="arttır" className="btn">
               +
             </Button>
           </ButtonGroup>

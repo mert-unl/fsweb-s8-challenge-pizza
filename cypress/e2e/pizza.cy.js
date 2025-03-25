@@ -33,7 +33,7 @@ describe("Pizza testleri", () => {
     cy.get('[data-cy="submit"]').should("be.disabled");
   });
 
-  it("Tüm malzemeler seçilip success sayfasına yönlendiriyor", () => {
+  it("Tüm malzemeler ve özellikler seçilip 'Success' sayfasına yönlendiriyor", () => {
     cy.get('[data-cy="orta"]').click();
     cy.get('[data-cy="hamur"]').click();
     cy.contains("İnce Hamur").click();
@@ -52,12 +52,12 @@ describe("Pizza testleri", () => {
     cy.contains("TEBRİKLER!");
   });
 
-  it("İsim 3 harfden az yazılırsa hata mesajı veriyor.", () => {
+  it("İsim 3 harften az yazılırsa hata mesajı veriyor.", () => {
     cy.get('[data-cy="isim"]').type("sa");
     cy.contains("İsminizi yazmayı unuttunuz!");
   });
 
-  it("Adres 10 harfden az yazılırsa hata mesajı veriyor.", () => {
+  it("Adres 10 harften az yazılırsa hata mesajı veriyor.", () => {
     cy.get('[data-cy="adres"]').type("1234567");
     cy.contains("Sipariş adresiniz en az 10 karakter olmalı. ");
   });
@@ -108,7 +108,7 @@ describe("Pizza testleri", () => {
     cy.contains("TEBRİKLER!");
   });
 
-  it("4 adet pizza(3 kez tıklanıyor) ve 5 adet malzeme seçilince doğru fiyatı veriyor.", () => {
+  it("4 adet pizza (3 kez tıklanıyor) ve 5 adet malzeme seçilince doğru fiyatı veriyor ve sipariş veriliyor.", () => {
     cy.get('[data-cy="küçük"]').click();
     cy.get('[data-cy="hamur"]').click();
     cy.contains("Orta Hamur").click();

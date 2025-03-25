@@ -4,6 +4,7 @@ import './App.css'
 import OrderPizza from './components/OrderPizza' 
 import Home from './components/Home'
 import Success from './components/Success' 
+import Menu from './components/Menu'
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
          <OrderPizza/>
         </Route>
       
+        <Route path="/menu">
+          <Menu/>
+        </Route>
+
         <Route path="/success">
           <Success/>
         </Route>
