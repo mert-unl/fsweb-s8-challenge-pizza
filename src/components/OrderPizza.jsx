@@ -18,6 +18,7 @@ import {
   FormFeedback,
 } from "reactstrap";
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
+import Footer from "./Footer";
 
 export default function OrderPizza() {
   const initialValue = {
@@ -74,7 +75,7 @@ export default function OrderPizza() {
   };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedHamur, setSelectedHamur] = useState("Hamur Kalınlığı");
+  const [selectedHamur, setSelectedHamur] = useState("-Hamur Kalınlığı Seç-");
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const malzemeler = [
     "Pepperoni",
@@ -216,38 +217,46 @@ export default function OrderPizza() {
     <div className="maindiv">
       <header>
         <img src="../images/iteration-1-images/logo.svg" />
-        <nav className="nav">
-          <NavLink to="/">Anasayfa</NavLink>
-          <span>-</span>
-          <NavLink to="/menu">Seçenekler</NavLink>
-          <span>-</span>
-
-          <NavLink to="/orderpizza">
-            <b>Sipariş Oluştur</b>
-          </NavLink>
-        </nav>
       </header>
 
-      <div className="dis">
-        <h3 className="anabaslik">Position Absolute Acı Pizza</h3>
-        <div className="fiyat">
-          <p className="para">{formData.basePrice}₺</p>
+      <div className="ust">
+        <div className="ustic">
+          <img src="../images/iteration-2-images/pictures/form-banner.png" />
 
-          <div className="rating">
-            <p>4.9</p>
-            <p>(200)</p>
+          <nav className="nav">
+            <NavLink to="/">Anasayfa</NavLink>
+            <span>-</span>
+            <NavLink to="/menu">Seçenekler</NavLink>
+            <span>-</span>
+
+            <NavLink to="/orderpizza">
+              <span style={{ color: "red" }}>Sipariş Oluştur</span>
+            </NavLink>
+          </nav>
+
+          <h3 className="anabaslik">Position Absolute Acı Pizza</h3>
+          <div className="fiyat">
+            <p className="para">{formData.basePrice}₺</p>
+
+            <div className="rating">
+              <p>4.9</p>
+              <p>(200)</p>
+            </div>
           </div>
+
+          <p style={{ color: "#5F5F5F" }}>
+            Frontend Dev olarak hala position:absolute kullanıyorsan bu çok acı
+            pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli
+            diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun
+            ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle
+            yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan
+            kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta
+            denir.
+          </p>
         </div>
+      </div>
 
-        <p style={{ color: "#5F5F5F" }}>
-          Frontend Dev olarak hala position:absolute kullanıyorsan bu çok acı
-          pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli
-          diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun
-          ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle yuvarlak,
-          düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli
-          lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir.
-        </p>
-
+      <div className="dis">
         {/*Seçimler Section */}
         <section className="secimler">
           {/*Boyut Section */}
@@ -257,6 +266,7 @@ export default function OrderPizza() {
             </p>
 
             <div className="boyutlar">
+              {/*
               <Label for="küçük">
                 <Input
                   onChange={onHandleChange}
@@ -283,6 +293,7 @@ export default function OrderPizza() {
 
               <Label for="büyük">
                 <Input
+                before="a"
                   onChange={onHandleChange}
                   id="büyük"
                   type="radio"
@@ -292,6 +303,46 @@ export default function OrderPizza() {
                 />{" "}
                 Büyük
               </Label>
+*/}
+              <Button
+                id="küçük"
+                data-cy="küçük"
+                type="radio"
+                name="boyut"
+                value="küçük"
+                onClick={onHandleChange}
+                className="boyut"
+                style={{ borderRadius: "150%" }}
+              >
+                S
+              </Button>
+
+              <Button
+                id="orta"
+                data-cy="orta"
+                type="radio"
+                name="boyut"
+                value="orta"
+                onClick={onHandleChange}
+                className="boyut"
+                style={{ borderRadius: "150%" }}
+              >
+                M
+              </Button>
+
+              <Button
+                id="büyük"
+                data-cy="büyük"
+                type="radio"
+                name="boyut"
+                value="büyük"
+                onClick={onHandleChange}
+                className="boyut"
+                style={{ borderRadius: "150%" }}
+              >
+                L
+              </Button>
+
             </div>
           </section>
 
@@ -382,7 +433,7 @@ export default function OrderPizza() {
                   data-cy={malzeme}
                   type="checkbox"
                 />
-                <Label for={malzeme} check>
+                <Label className="malzeme-adi" for={malzeme} check>
                   <b>{malzeme}</b>
                 </Label>
               </FormGroup>
@@ -395,6 +446,12 @@ export default function OrderPizza() {
           <Label for="isim" className="titles">
             İsim<span style={{ color: "red" }}> *</span>
             <Input
+              style={{
+                background: "#FAF7F2",
+                marginTop: "1rem",
+                padding: "1rem",
+                borderColor: "#FFFFFF",
+              }}
               onChange={onHandleChange}
               name="isim"
               id="isim"
@@ -410,6 +467,12 @@ export default function OrderPizza() {
           <Label for="adres" className="titles">
             Adres<span style={{ color: "red" }}> *</span>
             <Input
+              style={{
+                background: "#FAF7F2",
+                marginTop: "1rem",
+                padding: "1rem",
+                borderColor: "#FFFFFF",
+              }}
               name="adres"
               id="adres"
               data-cy="adres"
@@ -424,16 +487,22 @@ export default function OrderPizza() {
 
           <Label for="siparisnotu" className="titles">
             Sipariş Notu
+            <Input
+              style={{
+                background: "#FAF7F2",
+                marginTop: "1rem",
+                padding: "1rem",
+                borderColor: "#FFFFFF",
+              }}
+              onChange={onHandleChange}
+              id="siparisnotu"
+              value={formData.siparisnotu}
+              name="siparisnotu"
+              data-cy="siparisnotu"
+              placeholder="Siparişine eklemek istediğin bir not var mı?"
+              type="text"
+            />
           </Label>
-          <Input
-            onChange={onHandleChange}
-            id="siparisnotu"
-            value={formData.siparisnotu}
-            name="siparisnotu"
-            data-cy="siparisnotu"
-            placeholder="Siparişine eklemek istediğin bir not var mı?"
-            type="text"
-          />
         </section>
 
         <div style={{ borderBottom: "1px solid gray", margin: "10px 0" }}></div>
@@ -444,7 +513,12 @@ export default function OrderPizza() {
             <Button onClick={azalt} data-cy="azalt" className="btn">
               -
             </Button>
-            <span className="sayi">{formData.adet}</span>
+            <span
+              className="sayi"
+              style={{ background: "#FAF7F2", padding: "1rem" }}
+            >
+              {formData.adet}
+            </span>
             <Button onClick={arttir} data-cy="arttır" className="btn">
               +
             </Button>
@@ -471,11 +545,13 @@ export default function OrderPizza() {
               onClick={handleSubmit}
               className="siparisbutton"
             >
-              <b>Sipariş Ver</b>
+              <b>SİPARİŞ VER</b>
             </Button>
           </div>
         </section>
       </div>
+ <Footer/>
+
     </div>
   );
 }
