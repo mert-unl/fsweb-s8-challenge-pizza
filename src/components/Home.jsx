@@ -23,7 +23,7 @@ function go (){
         
       </div>
 
-    <Button onClick={go} className="homebutton">ACIKTIM</Button>
+    <Button onClick={go} data-cy="acıktım" className="homebutton">ACIKTIM</Button>
     
     
     </div>

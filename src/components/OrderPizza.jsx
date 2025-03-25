@@ -270,6 +270,7 @@ export default function OrderPizza() {
                   id="küçük"
                   type="radio"
                   name="boyut"
+                  data-cy="küçük"
                   value="küçük"
                 />{" "}
                 Küçük
@@ -279,6 +280,7 @@ export default function OrderPizza() {
                 <Input
                   onChange={onHandleChange}
                   id="orta"
+                  data-cy="orta"
                   type="radio"
                   name="boyut"
                   value="orta"
@@ -291,6 +293,7 @@ export default function OrderPizza() {
                   onChange={onHandleChange}
                   id="büyük"
                   type="radio"
+                  data-cy="büyük"
                   name="boyut"
                   value="büyük"
                 />{" "}
@@ -306,7 +309,7 @@ export default function OrderPizza() {
             </p>
 
             <div className="hamur">
-              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+              <Dropdown data-cy="hamur" isOpen={dropdownOpen} toggle={toggle}>
                 <DropdownToggle caret> {selectedHamur}</DropdownToggle>
 
                 <DropdownMenu>
@@ -383,6 +386,7 @@ export default function OrderPizza() {
                   name={malzeme}
                   value={malzeme}
                   id={malzeme}
+                  data-cy={malzeme}
                   type="checkbox"
                 />
                 <Label for={malzeme} check>
@@ -402,6 +406,7 @@ export default function OrderPizza() {
               name="isim"
               id="isim"
               type="text"
+              data-cy="isim"
               value={formData.isim}
               invalid={errors.isim}
               placeholder="İsmini yaz"
@@ -414,6 +419,7 @@ export default function OrderPizza() {
             <Input
               name="adres"
               id="adres"
+              data-cy="adres"
               onChange={onHandleChange}
               type="text"
               value={formData.adres}
@@ -431,6 +437,7 @@ export default function OrderPizza() {
             id="siparisnotu"
             value={formData.siparisnotu}
             name="siparisnotu"
+            data-cy="siparisnotu"
             placeholder="Siparişine eklemek istediğin bir not var mı?"
             type="text"
           />
@@ -441,11 +448,15 @@ export default function OrderPizza() {
         {/*Sipariş Fiyatı*/}
         <section className="siparisbottom">
           <ButtonGroup>
-            <Button onClick={azalt} className="btn">
+            <Button onClick={azalt}
+                          data-cy="azalt"
+            className="btn">
               -
             </Button>
             <span className="sayi">{formData.adet}</span>
-            <Button onClick={arttir} className="btn">
+            <Button onClick={arttir}
+                          data-cy="arttır"
+            className="btn">
               +
             </Button>
           </ButtonGroup>
@@ -467,6 +478,7 @@ export default function OrderPizza() {
             <Button
               disabled={!isValid}
               name="submit"
+              data-cy="submit"
               onClick={handleSubmit}
               className="siparisbutton"
             >
