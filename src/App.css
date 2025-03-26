@@ -10,26 +10,72 @@ p {
   font-family: "Barlow";
 }
 
-.successPage {
-  background-color: #ce2829;
-  display: flex;
-  height: 100vh;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+
+
+/*Succes CSS*/
+
+
+
+
+.succesPage{
+background-color: #CE2829;
+color: white;
+text-align: center;
+align-items: center;
+display: flex;
+flex-direction: column;
+height: 100vh;
+padding-top: 2rem;
+width: 100vw;
 }
 
-.successPage div {
-  color: white;
-  font-family: "Barlow";
-  justify-content: center;
-  font-size: 3rem;
-  margin-top: 10rem;
-  margin-bottom: 14rem;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+.s1y{
+  margin-top: 4rem;
+  color: #fdc913 !important;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: "Satisfy";
 }
+
+.s2t{
+font-family: "Roboto Condensed";
+font-size: 4.5rem;
+font-weight: 300;
+}
+
+.icerik{
+  font-family: "Barlow";
+  text-align: start;
+  padding: 2rem;
+  font-size: 0.8rem;
+  max-width: 300px;
+  margin-left: 2rem;
+}
+
+.sstm{
+  border: solid 1px white;
+  border-radius: 6px;
+  width: 17rem;
+  text-align: start;
+  padding:2rem;
+}
+
+
+.sf{
+  flex-direction: row;
+  justify-content: space-between;
+  display: flex;
+  font-size: 18px;
+  font-weight: 500;
+
+}
+
+
+
+
+
+
+/*Home CSS*/
 
 .home {
   background-image: url("../images/iteration-1-images/home-banner.png");
@@ -52,6 +98,12 @@ p {
   flex-direction: column;
 }
 
+
+.topbtn:hover{
+  color:white;
+  background-color: #292929 !important;
+}
+
 .homebutton {
   border: 5px solid white !important;
   padding: 1rem 5rem !important;
@@ -63,6 +115,24 @@ p {
   font-weight: bold !important;
   font-size: 0.9rem !important;
 }
+
+
+.siparis{
+  color: #CE2829 !important;
+  background-color: white !important;
+  border-radius: 40px !important;
+  border-color: white;
+  margin-top: 5px;
+  padding: 11px 25px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-family: "Barlow";
+}
+
+
+
+
+
 
 /*  Sipariş Bölümü CSS */
 .nav {
@@ -242,7 +312,7 @@ input[type="checkbox"]:checked {
 
 
 .btn {
-  background-color: #FAF7F2 !important;
+  background-color: #fdc913 !important;
   color: #292929 !important;
   border: #fdc913 !important;
   padding: 0.8rem 1rem !important;
@@ -277,7 +347,7 @@ input[type="checkbox"]:checked {
   display: flex;  border-radius: 10px;
   flex-direction: column;
   background-color: #FAF7F2;
-
+border: solid 1px lightgrey;
   width: 60%;
 }
 
@@ -335,14 +405,14 @@ font-family: "Satisfy";
 }
 
 
+/* Footer Css*/
+
 .footermain{
   background-color:#161616;
   display: flex;
   color:white;
   font-family: "Roboto";
   padding: 2rem;
-  margin-top: 10rem;
-  gap:2rem;
   flex-direction: row;
 justify-content: space-around;
 }
@@ -365,6 +435,6 @@ justify-content: space-around;
 
 
 
-/* Footer Css*/
+
 
 

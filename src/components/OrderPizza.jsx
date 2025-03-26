@@ -22,6 +22,7 @@ import Footer from "./Footer";
 
 export default function OrderPizza() {
   const initialValue = {
+    pizzaname:"Position absolute pizza",
     boyut: "",
     hamur: "",
     malzemeler: [],
@@ -123,7 +124,10 @@ export default function OrderPizza() {
       .then((r) => {
         console.log("Giden data:", formData);
         console.log("Sipariş Özeti:", r.data);
-        history.push("/success");
+        history.push({
+          pathname: "/success",
+          state: { orderData: formData }  
+        });
       })
       .catch((e) => console.log(e));
   };
@@ -305,11 +309,11 @@ export default function OrderPizza() {
               </Label>
 */}
               <Button
-                id="küçük"
-                data-cy="küçük"
+                id="S"
+                data-cy="S"
                 type="radio"
                 name="boyut"
-                value="küçük"
+                value="S"
                 onClick={onHandleChange}
                 className="boyut"
                 style={{ borderRadius: "150%" }}
@@ -318,11 +322,11 @@ export default function OrderPizza() {
               </Button>
 
               <Button
-                id="orta"
-                data-cy="orta"
+                id="M"
+                data-cy="M"
                 type="radio"
                 name="boyut"
-                value="orta"
+                value="M"
                 onClick={onHandleChange}
                 className="boyut"
                 style={{ borderRadius: "150%" }}
@@ -331,11 +335,11 @@ export default function OrderPizza() {
               </Button>
 
               <Button
-                id="büyük"
-                data-cy="büyük"
+                id="L"
+                data-cy="L"
                 type="radio"
                 name="boyut"
-                value="büyük"
+                value="L"
                 onClick={onHandleChange}
                 className="boyut"
                 style={{ borderRadius: "150%" }}
@@ -357,45 +361,76 @@ export default function OrderPizza() {
                 <DropdownToggle caret> {selectedHamur}</DropdownToggle>
 
                 <DropdownMenu>
-                  <DropdownItem
+                <DropdownItem
                     onClick={() => {
-                      setSelectedHamur("İnce Hamur");
+                      setSelectedHamur("Süpper İnce");
                       onHandleChange({
                         target: {
                           name: "hamur",
-                          value: "İnce Hamur",
+                          value: "Süpper İnce",
                         },
                       });
                     }}
                   >
-                    İnce Hamur
+                    Süpper İnce
                   </DropdownItem>
+
+
                   <DropdownItem
                     onClick={() => {
-                      setSelectedHamur("Orta Hamur");
+                      setSelectedHamur("İnce");
                       onHandleChange({
                         target: {
                           name: "hamur",
-                          value: "Orta Hamur",
+                          value: "İnce",
                         },
                       });
                     }}
                   >
-                    Orta Hamur
+                    İnce
                   </DropdownItem>
                   <DropdownItem
                     onClick={() => {
-                      setSelectedHamur("Kalın Hamur");
+                      setSelectedHamur("Orta");
                       onHandleChange({
                         target: {
                           name: "hamur",
-                          value: "Kalın Hamur",
+                          value: "Orta",
                         },
                       });
                     }}
                   >
-                    Kalın Hamur
+                    Orta
                   </DropdownItem>
+                  <DropdownItem
+                    onClick={() => {
+                      setSelectedHamur("Kalın");
+                      onHandleChange({
+                        target: {
+                          name: "hamur",
+                          value: "Kalın",
+                        },
+                      });
+                    }}
+                  >
+                    Kalın
+                  </DropdownItem>
+
+                  <DropdownItem
+                    onClick={() => {
+                      setSelectedHamur("Extra Kalın");
+                      onHandleChange({
+                        target: {
+                          name: "hamur",
+                          value: "Extra Kalın",
+                        },
+                      });
+                    }}
+                  >
+                    Extra Kalın
+                  </DropdownItem>
+
+
                 </DropdownMenu>
               </Dropdown>
             </div>
@@ -511,16 +546,16 @@ export default function OrderPizza() {
         <section className="siparisbottom">
           <ButtonGroup>
             <Button onClick={azalt} data-cy="azalt" className="btn">
-              -
+              <b>-</b>
             </Button>
             <span
               className="sayi"
               style={{ background: "#FAF7F2", padding: "1rem" }}
             >
-              {formData.adet}
+              <b>{formData.adet}</b>
             </span>
             <Button onClick={arttir} data-cy="arttır" className="btn">
-              +
+            <b>+</b>
             </Button>
           </ButtonGroup>
 
@@ -550,7 +585,6 @@ export default function OrderPizza() {
           </div>
         </section>
       </div>
- <Footer/>
 
     </div>
   );
