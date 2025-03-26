@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import {Card,CardText,Button, CardBody, CardSubtitle, CardTitle } from "reactstrap"
+import {Card,CardText,Button, CardBody, CardSubtitle, CardTitle, CardImg } from "reactstrap"
 
 
 export default function Menu(){
@@ -122,11 +122,56 @@ export default function Menu(){
     ];
 
     const history = useHistory()
-    const onClick = ()=>{
-    history.push("/orderpizza")
+   
+
+
+    function MenuCards({onClick, src, isim,yazi ,rating, yorum ,fiyat }) {
+      return (
+        <Card
+          style={{
+            width: "350px",
+            height: "450px",
+            backgroundColor:"#FAF7F2",
+            padding:"1rem",
+            borderColor:"white", 
+            borderRadius: "12px",
+          }}
+        >
+          <CardBody>
+            <CardImg src={src} />
+            <CardTitle style={{fontWeight:"600",fontSize:"1.1rem",textAlign:"start",marginTop:"1rem",fontFamily:"Barlow"}}>
+            {isim}
+            </CardTitle>
+          <div
+              style={{
+                textAlign:"start",
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              <span style={{fontWeight:"500"}}>{rating}</span>
+              <span style={{fontWeight:"500",marginLeft:"6rem"}}>({yorum})</span>
+              <span style={{marginLeft:"2rem",color:"black",fontWeight:"bold"}}>{fiyat}₺</span>
+            </div>
+<CardText>
+
+  {yazi}
+</CardText>
+
+          </CardBody>
+          <Button onClick={onClick}></Button>
+        </Card>
+      );
     }
 
 
+    const onClick = (selectedPizza)=>{
+    
+    history.push({
+      pathname: "/orderpizza",
+      state: { orderData: selectedPizza }  
+    });
+    }
 
 
     return(
@@ -139,6 +184,7 @@ export default function Menu(){
 
 <body className="menu-body">
 
+{/*
 {pizzaList.map((pizza,index)=>{
 return(
 <Card
@@ -147,7 +193,7 @@ return(
   }}
 >
   <img
-    alt="Sample"
+    alt={pizza.adı}
     src={`https://foodish-api.com/images/pizza/pizza${index+1}.jpg`}
     />
   <CardBody>
@@ -167,13 +213,27 @@ return(
     <CardText>
        {pizza.icerigi}
     </CardText>
-    <Button onClick={onClick}>
+    <Button  onClick={() => onClick(pizza)}>
       {pizza.fiyatı} ₺
     </Button>
   </CardBody>
 </Card>
-)
+*/}
+
+{pizzaList.map((pizza, index) => {
+  return (
+    <MenuCards onClick={() => onClick(pizza)}
+      key={index} // Listelerde key kullan
+      src={`https://foodish-api.com/images/pizza/pizza${index + 1}.jpg`}
+      isim={pizza.adı}
+      yazi={pizza.icerigi}
+      rating={pizza.rating}
+      yorum={pizza.yorum}
+      fiyat={pizza.fiyatı}
+    />
+  );
 })}
+
 
  </body>
 

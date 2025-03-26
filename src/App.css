@@ -26,7 +26,6 @@ display: flex;
 flex-direction: column;
 height: 100vh;
 padding-top: 2rem;
-width: 100vw;
 }
 
 .s1y{
@@ -204,7 +203,7 @@ header {
 }
 .anabaslik {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
   color: #292929;
 ;
 }
@@ -376,14 +375,14 @@ border: solid 1px lightgrey;
 .mainmenu{
 width: 100%;
 height: 100%;
+background-color:"#FAF7F2"
 }
 
 
 .menu-body {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
+  gap: 1rem;
+  padding: 1rem;
   max-width: 90%;
   margin: 0 auto;
 }
@@ -414,27 +413,35 @@ font-family: "Satisfy";
   font-family: "Roboto";
   padding: 2rem;
   flex-direction: row;
-justify-content: space-around;
+  gap: 5rem;
+justify-content: center;
 }
 
 .a{
   display: flex;
-  gap:2rem;
+  gap:1rem;
   flex-direction: column;
 }
 
 .b{
   display: flex;
   flex-direction: column;
+  margin-top: 5rem;
+  font-family: "Barlow";
 }
 
 .c{
   display: flex;
+  margin-top: 5rem;
   flex-direction: column;
 }
 
 
+.imgs{
+width: 110px;
+height: 110px;
 
+}
 
 
 

@@ -19,10 +19,11 @@ import {
 } from "reactstrap";
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
 import Footer from "./Footer";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function OrderPizza() {
   const initialValue = {
-    pizzaname:"Position absolute pizza",
+    pizzaname:"Position Absolute Acı Pizza",
     boyut: "",
     hamur: "",
     malzemeler: [],
@@ -37,6 +38,8 @@ export default function OrderPizza() {
 
   const [formData, setFormData] = useState(initialValue);
 
+  const location = useLocation();
+  const orderData = location.state?.orderData;
   // Adet değiştiriciler
 
   const arttir = () => {
@@ -238,24 +241,18 @@ export default function OrderPizza() {
             </NavLink>
           </nav>
 
-          <h3 className="anabaslik">Position Absolute Acı Pizza</h3>
+          <h3 className="anabaslik">{orderData?.adı || "Position Absolute Acı Pizza"}</h3>
           <div className="fiyat">
-            <p className="para">{formData.basePrice}₺</p>
+            <p className="para">{orderData?.fiyatı || "85.50"}₺</p>
 
             <div className="rating">
-              <p>4.9</p>
-              <p>(200)</p>
+              <p>{orderData?.rating || "4.9"}</p>
+              <p>({orderData?.yorum || "200"})</p>
             </div>
           </div>
 
           <p style={{ color: "#5F5F5F" }}>
-            Frontend Dev olarak hala position:absolute kullanıyorsan bu çok acı
-            pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli
-            diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun
-            ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle
-            yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan
-            kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta
-            denir.
+          {orderData?.icerigi.trim() || "Frontend Dev olarak hala position:absolute kullanıyorsan bu çok acı pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir."}
           </p>
         </div>
       </div>

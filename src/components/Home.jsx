@@ -15,6 +15,10 @@ export default function Home() {
     history.push("/orderpizza");
   }
 
+  function menu() {
+    history.push("/menu");
+  }
+
   function Mycard({ src, extra, yazi, color1 }) {
     return (
       <Card
@@ -40,7 +44,8 @@ export default function Home() {
             <span style={{ color: "#CE2829" }}>{extra}</span>
             {yazi}
           </CardTitle>
-          <button className="siparis">SİPARİŞ VER</button>{" "}
+          <button      onClick={go}
+ className="siparis">SİPARİŞ VER</button>{" "}
         </CardBody>
       </Card>
     );
@@ -50,26 +55,28 @@ export default function Home() {
     return (
       <Card
         style={{
-          width: "250px",
-          height: "400px",
-          borderRadius: "10px",
+          width: "350px",
+          height: "450px",
+          padding:"1rem",
+          borderColor:"white", 
+          borderRadius: "12px",
         }}
       >
         <CardBody>
           <CardImg src={src} />
-          <CardTitle>
-            {yazi}
+          <CardTitle style={{fontWeight:"600",fontSize:"1.1rem",textAlign:"start",marginTop:"1rem",fontFamily:"Barlow"}}>
+          {yazi}
           </CardTitle>
         <div
             style={{
+              textAlign:"start",
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-around",
             }}
           >
-            <span>4.9</span>
-            <span>(200)</span>
-            <span>60TL</span>
+            <span style={{fontWeight:"500"}}>4.9</span>
+            <span style={{fontWeight:"500",marginLeft:"6rem"}}>(200)</span>
+            <span style={{marginLeft:"2rem",color:"black",fontWeight:"bold"}}>60₺</span>
           </div>
         </CardBody>
       </Card>
@@ -78,7 +85,8 @@ export default function Home() {
 
   function TopButton({ src, isim }) {
     return (
-      <button
+      <button     onClick={go}
+
         className="topbtn"
         style={{
           textAlign: "center",
@@ -127,7 +135,7 @@ export default function Home() {
           <span>PİZZA, DOYURUR</span>
         </div>
 
-        <Button onClick={go} data-cy="acıktım" className="homebutton">
+        <Button onClick={menu} data-cy="acıktım" className="homebutton">
           ACIKTIM
         </Button>
       </div>
@@ -203,11 +211,11 @@ export default function Home() {
             <CardText style={{ color: "white" }}>
               <b>Position: Absolute Acı Burger</b>
             </CardText>
-            <button className="siparis">SİPARİŞ VER</button>{" "}
+            <button   onClick={go} className="siparis">SİPARİŞ VER</button>{" "}
           </CardBody>
         </Card>
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <Mycard
+          <Mycard 
             src={"../images/iteration-2-images/cta/kart-2.png"}
             yazi={"Hackathlon Burger Menü"}
             color1={"white"}
@@ -236,7 +244,7 @@ export default function Home() {
         >
           en çok paketlenen menüler
         </span>
-        <h1>Acıktıran Kodlara Doyuran Lezzetler</h1>
+        <h1 style={{fontWeight:"600"}}>Acıktıran Kodlara Doyuran Lezzetler</h1>
       </div>
 
       <div
@@ -285,7 +293,7 @@ export default function Home() {
           flexDirection: "row",
           background: "#FAF7F2",
           justifyContent: "center",
-          gap: "1rem",
+          gap: "1.8rem",
         }}
       >
         <AltCard
@@ -295,12 +303,12 @@ export default function Home() {
 
         <AltCard
           src={"../images/iteration-2-images/pictures/food-2.png"}
-          yazi={"Ramen"}
+          yazi={"Position Absolute Acı Pizza"}
         />
 
         <AltCard
-          src={"../images/iteration-2-images/pictures/food-2.png"}
-          yazi={"Ramen"}
+          src={"../images/iteration-2-images/pictures/food-3.png"}
+          yazi={"useEffect Tavuklu Burger"}
         />
       </div>
     </div>
