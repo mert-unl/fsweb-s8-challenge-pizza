@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPizzaSlice } from "@fortawesome/free-solid-svg-icons";
 import {
   Input,
   Label,
@@ -21,12 +22,22 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom";
 import Footer from "./Footer";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
+function PizzaParticle() {
+  return (
+    <FontAwesomeIcon
+      className="pizzaicon"
+      icon={faPizzaSlice}
+      style={{ color: "#FFD43B", fontSize: "50px" }} // İkon büyüklüğü
+    />
+  );
+}
+
 export default function OrderPizza() {
   const location = useLocation();
   const orderData = location.state?.orderData;
 
   const initialValue = {
-    pizzaname:`${ orderData?.adı || "Position Absolute Acı Pizza"}`,
+    pizzaname: `${orderData?.adı || "Position Absolute Acı Pizza"}`,
     boyut: "",
     hamur: "",
     malzemeler: [],
@@ -34,13 +45,12 @@ export default function OrderPizza() {
     adres: "",
     siparisnotu: "",
     adet: 1,
-    basePrice: orderData?.fiyatı || 85.50,
+    basePrice: orderData?.fiyatı || 85.5,
     extraPrice: 0,
-    totalPrice: orderData?.fiyatı || 85.50,
+    totalPrice: orderData?.fiyatı || 85.5,
   };
 
   const [formData, setFormData] = useState(initialValue);
-
 
   // Adet değiştiriciler
 
@@ -131,7 +141,7 @@ export default function OrderPizza() {
         console.log("Sipariş Özeti:", r.data);
         history.push({
           pathname: "/success",
-          state: { orderData: formData }  
+          state: { orderData: formData },
         });
       })
       .catch((e) => console.log(e));
@@ -225,14 +235,14 @@ export default function OrderPizza() {
   function SizeSelector() {
     const sizes = ["S", "M", "L"];
     const selectedSize = formData.boyut; // Form state'inden güncel boyutu al
-  
+
     const handleClick = (size) => {
       setFormData((prev) => ({
         ...prev,
         boyut: size,
       }));
     };
-  
+
     return (
       <div className="sizeCover">
         {sizes.map((size) => (
@@ -253,13 +263,11 @@ export default function OrderPizza() {
     );
   }
 
-  
   return (
     <div className="maindiv">
       <header>
         <img src="../images/iteration-1-images/logo.svg" />
       </header>
-
       <div className="ust">
         <div className="ustic">
           <img src="../images/iteration-2-images/pictures/form-banner.png" />
@@ -275,7 +283,9 @@ export default function OrderPizza() {
             </NavLink>
           </nav>
 
-          <h3 className="anabaslik">{orderData?.adı || "Position Absolute Acı Pizza"}</h3>
+          <h3 className="anabaslik">
+            {orderData?.adı || "Position Absolute Acı Pizza"}
+          </h3>
           <div className="fiyat">
             <p className="para">{orderData?.fiyatı || "85.50"}₺</p>
 
@@ -286,26 +296,23 @@ export default function OrderPizza() {
           </div>
 
           <p style={{ color: "#5F5F5F" }}>
-          {orderData?.icerigi.trim() || "Frontend Dev olarak hala position:absolute kullanıyorsan bu çok acı pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir."}
+            {orderData?.icerigi.trim() ||
+              "Frontend Dev olarak hala position:absolute kullanıyorsan bu çok acı pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir."}
           </p>
         </div>
       </div>
-
       <div className="dis">
-
         {/*Seçimler Section */}
         <section className="secimler">
-
           {/*Boyut Section */}
           <section className="boyutSec">
             <p className="titles">
               Boyut Seç<span style={{ color: "red" }}> *</span>
             </p>
             <div className="boyutlar">
-              <SizeSelector/>
+              <SizeSelector />
             </div>
           </section>
-
 
           {/*Hamur Section */}
           <section>
@@ -313,81 +320,82 @@ export default function OrderPizza() {
               Hamur Seç<span style={{ color: "red" }}> *</span>
             </p>
 
-              <Dropdown  data-cy="hamur" isOpen={dropdownOpen} toggle={toggle}>
-                <DropdownToggle  className="hmr" caret> {selectedHamur}</DropdownToggle>
+            <Dropdown data-cy="hamur" isOpen={dropdownOpen} toggle={toggle}>
+              <DropdownToggle className="hmr" caret>
+                {" "}
+                {selectedHamur}
+              </DropdownToggle>
 
-                <DropdownMenu >
-                <DropdownItem 
-                
-                    onClick={() => {
-                      setSelectedHamur("Süpper İnce");
-                      onHandleChange({
-                        target: {
-                          name: "hamur",
-                          value: "Süpper İnce",
-                        },
-                      });
-                    }}
-                  >
-                    Süpper İnce
-                  </DropdownItem>
+              <DropdownMenu>
+                <DropdownItem
+                  onClick={() => {
+                    setSelectedHamur("Süpper İnce");
+                    onHandleChange({
+                      target: {
+                        name: "hamur",
+                        value: "Süpper İnce",
+                      },
+                    });
+                  }}
+                >
+                  Süpper İnce
+                </DropdownItem>
 
+                <DropdownItem
+                  onClick={() => {
+                    setSelectedHamur("İnce");
+                    onHandleChange({
+                      target: {
+                        name: "hamur",
+                        value: "İnce",
+                      },
+                    });
+                  }}
+                >
+                  İnce
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setSelectedHamur("Orta");
+                    onHandleChange({
+                      target: {
+                        name: "hamur",
+                        value: "Orta",
+                      },
+                    });
+                  }}
+                >
+                  Orta
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    setSelectedHamur("Kalın");
+                    onHandleChange({
+                      target: {
+                        name: "hamur",
+                        value: "Kalın",
+                      },
+                    });
+                  }}
+                >
+                  Kalın
+                </DropdownItem>
 
-                  <DropdownItem
-                    onClick={() => {
-                      setSelectedHamur("İnce");
-                      onHandleChange({
-                        target: {
-                          name: "hamur",
-                          value: "İnce",
-                        },
-                      });
-                    }}
-                  >
-                    İnce
-                  </DropdownItem>
-                  <DropdownItem
-                    onClick={() => {
-                      setSelectedHamur("Orta");
-                      onHandleChange({
-                        target: {
-                          name: "hamur",
-                          value: "Orta",
-                        },
-                      });
-                    }}
-                  >
-                    Orta
-                  </DropdownItem>
-                  <DropdownItem
-                    onClick={() => {
-                      setSelectedHamur("Kalın");
-                      onHandleChange({
-                        target: {
-                          name: "hamur",
-                          value: "Kalın",
-                        },
-                      });
-                    }}
-                  >
-                    Kalın
-                  </DropdownItem>
-
-                  <DropdownItem
-                    onClick={() => {
-                      setSelectedHamur("Extra Kalın");
-                      onHandleChange({
-                        target: {
-                          name: "hamur",
-                          value: "Extra Kalın",
-                        },
-                      });
-                    }}
-                  >
-                    Extra Kalın
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
+                <DropdownItem
+                  onClick={() => {
+                    setSelectedHamur("Extra Kalın");
+                    onHandleChange({
+                      target: {
+                        name: "hamur",
+                        value: "Extra Kalın",
+                      },
+                    });
+                  }}
+                >
+                  Extra Kalın
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </section>
         </section>
 
@@ -413,19 +421,22 @@ export default function OrderPizza() {
 
           <Form className="malzemeler">
             {malzemeler.map((malzeme) => (
-              <FormGroup className="malzeme-grup" check inline>
-                <Input
+           
+             
+               
+               
+                <Label className="malzeme-adi" for={malzeme} check>
+                <input
                   onChange={onHandleChange}
                   name={malzeme}
                   value={malzeme}
                   id={malzeme}
                   data-cy={malzeme}
                   type="checkbox"
-                />
-                <Label className="malzeme-adi" for={malzeme} check>
-                  <b>{malzeme}</b>
+                />  <b>{malzeme}</b>
                 </Label>
-              </FormGroup>
+
+
             ))}
           </Form>
         </section>
@@ -509,7 +520,7 @@ export default function OrderPizza() {
               <b>{formData.adet}</b>
             </span>
             <Button onClick={arttir} data-cy="arttır" className="adetbtn">
-            <b>+</b>
+              <b>+</b>
             </Button>
           </ButtonGroup>
 
@@ -539,7 +550,6 @@ export default function OrderPizza() {
           </div>
         </section>
       </div>
-
     </div>
   );
 }

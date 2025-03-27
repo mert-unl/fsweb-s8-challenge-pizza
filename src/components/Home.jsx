@@ -211,7 +211,7 @@ export default function Home() {
             <CardText style={{ color: "white" }}>
               <b>Position: Absolute Acı Burger</b>
             </CardText>
-            <button   onClick={go} className="siparis">SİPARİŞ VER</button>{" "}
+            <button   onClick={go} data-cy="homesiparis" className="siparis">SİPARİŞ VER</button>{" "}
           </CardBody>
         </Card>
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>

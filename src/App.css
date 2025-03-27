@@ -10,25 +10,20 @@ p {
   font-family: "Barlow";
 }
 
-
-
 /*Succes CSS*/
 
-
-
-
-.succesPage{
-background-color: #CE2829;
-color: white;
-text-align: center;
-align-items: center;
-display: flex;
-flex-direction: column;
-height: 100vh;
-padding-top: 2rem;
+.succesPage {
+  background-color: #ce2829;
+  color: white;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 2rem;
 }
 
-.s1y{
+.s1y {
   margin-top: 4rem;
   color: #fdc913 !important;
   font-size: 1.5rem;
@@ -36,13 +31,13 @@ padding-top: 2rem;
   font-family: "Satisfy";
 }
 
-.s2t{
-font-family: "Roboto Condensed";
-font-size: 4.5rem;
-font-weight: 300;
+.s2t {
+  font-family: "Roboto Condensed";
+  font-size: 4.5rem;
+  font-weight: 300;
 }
 
-.icerik{
+.icerik {
   font-family: "Barlow";
   text-align: start;
   padding: 2rem;
@@ -51,28 +46,21 @@ font-weight: 300;
   margin-left: 2rem;
 }
 
-.sstm{
+.sstm {
   border: solid 1px white;
   border-radius: 6px;
   width: 17rem;
   text-align: start;
-  padding:2rem;
+  padding: 2rem;
 }
 
-
-.sf{
+.sf {
   flex-direction: row;
   justify-content: space-between;
   display: flex;
   font-size: 18px;
   font-weight: 500;
-
 }
-
-
-
-
-
 
 /*Home CSS*/
 
@@ -97,16 +85,13 @@ font-weight: 300;
   flex-direction: column;
 }
 
-
-.topbtn:hover{
-  color:white;
+.topbtn:hover {
+  color: white;
   background-color: #292929 !important;
 }
 
-
- 
 .homebutton {
-  background-color:#fdc913 !important;
+  background-color: #fdc913 !important;
   color: black !important;
   font-size: 1.1rem !important;
   font-weight: 600 !important;
@@ -114,12 +99,10 @@ font-weight: 300;
   border: solid 1px #fdc913 !important;
   border-radius: 2rem !important;
   padding: 1rem 5rem !important;
-
 }
 
-
-.siparis{
-  color: #CE2829 !important;
+.siparis {
+  color: #ce2829 !important;
   background-color: white !important;
   border-radius: 40px !important;
   border-color: white;
@@ -129,11 +112,6 @@ font-weight: 300;
   font-weight: 600;
   font-family: "Barlow";
 }
-
-
-
-
-
 
 /*  Sipariş Bölümü CSS */
 .nav {
@@ -184,30 +162,28 @@ header {
   text-align: center;
 }
 
-.ust{
+.ust {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  gap: 2rem;
-  background-color:  #FAF7F2
+  gap: 1rem;
+  background-color: #faf7f2;
 }
 
-.ustic{
+.ustic {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 40%;
-  gap: 3rem;
+  gap: 2rem;
   margin: 0rem auto;
   max-width: 1200px;
-
 }
 .anabaslik {
   font-size: 1.5rem;
   font-weight: 600;
   color: #292929;
-;
 }
 
 .fiyat {
@@ -239,22 +215,22 @@ header {
 
 .sizeCover {
   display: flex;
-  gap:1rem;
+  gap: 1rem;
   flex-direction: row;
 }
 
-.yellowButton{
+.yellowButton {
   background-color: #fdc913;
-  color:white
+  color: white;
 }
 
 .size-button {
   width: 60px;
   height: 60px;
-  color:#5F5F5F;
+  color: #5f5f5f;
   border-radius: 50%;
-  border: #FAF7F2;
-  background-color: #FAF7F2;
+  border: #faf7f2;
+  background-color: #faf7f2;
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
@@ -263,10 +239,9 @@ header {
 }
 
 .size-button[data-selected="true"] {
-  background-color:#FDC913 ;
+  background-color: #fdc913;
   border-color: #ffcc80;
 }
-
 
 .size-button[data-selected="true"]::after {
   content: "";
@@ -276,31 +251,24 @@ header {
   top: 0;
   left: 0;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+  box-shadow: 0 0 10px rgba(245, 184, 1, 0.575);
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
 }
 
 .size-button:hover {
-  background-color:  #ffecb3;
+  background-color: #ffecb3;
 }
 
-
-
-
-.hmr{
-  background-color:#FAF7F2 !important;
-  color:#5f5f5f !important;
-  border-color: #FAF7F2 !important;
+.hmr {
+  background-color: #faf7f2 !important;
+  color: #5f5f5f !important;
+  border-color: #faf7f2 !important;
   font-size: 1rem !important;
   font-weight: 500 !important;
   width: 14rem !important;
-  height:  3rem !important;
+  height: 3rem !important;
 }
-
-
-
-
 
 .malzemeler {
   display: grid;
@@ -310,30 +278,26 @@ header {
   color: #5f5f5f;
 }
 
-.malzeme-grup {
-  min-width: 100px;
-  align-items: end;
-}
+.malzeme-adi {
 
-
-.malzeme-adi{
-  text-align: center;
   align-items: center;
+  display: flex;
+  flex-direction: row;
 }
-
-
 
 input[type="checkbox"] {
-  appearance: none; 
+  appearance: none;
   border: 1px solid #ececec !important;
   width: 50px !important;
   height: 50px !important;
   margin-right: 8px !important;
-  background-color: #FAF7F2; 
+  background-color: #faf7f2;
+  border-radius: 12px;
   cursor: pointer;
   display: inline-block;
   position: relative;
 }
+
 input[type="checkbox"]:hover {
   border-color: #525252 !important;
   background-color: rgb(255, 238, 184) !important;
@@ -343,31 +307,35 @@ input[type="checkbox"]:hover {
 input[type="checkbox"]:checked {
   background-color: #fdc913 !important;
   border-color: #fdc913 !important;
-  color: #CE2829;
+  color: #ce2829;
   font-family: "Satisfy";
   cursor: pointer;
-  accent-color: #292929 !important;
-
+  accent-color: #000000 !important;
 }
 
 input[type="checkbox"]:checked::after {
-  content: "";
   position: absolute;
-  left: 19px;
-  top: 11px;
-  width: 12px;
-  height: 22px;
-  border: solid black; /* Tik rengi siyah */
-  border-width: 0 6px 4px 0;
-  transform: rotate(45deg);
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -40%);
 }
 
+
+input[type="checkbox"]:checked::after {
+  content: "✓" !important; 
+color: black; 
+font-size: 1.3rem; 
+line-height: 1;
+font-weight: 1000;
+font-family: "Barlow", cursive; 
+
+
+}
 .adetbtn {
   background-color: #fdc913 !important;
   color: #292929 !important;
   border: #fdc913 !important;
   padding: 0.8rem 1rem !important;
-  
 }
 
 .siparisbutton {
@@ -375,8 +343,7 @@ input[type="checkbox"]:checked::after {
   color: #292929 !important;
   border: #fdc913 !important;
   padding: 0.8rem 1rem !important;
-  border-radius: 0 0 0.5rem 0.5rem !important
-  
+  border-radius: 0 0 0.5rem 0.5rem !important;
 }
 
 .sayi {
@@ -395,10 +362,11 @@ input[type="checkbox"]:checked::after {
 }
 
 .siparistoplam {
-  display: flex;  border-radius: 10px;
+  display: flex;
+  border-radius: 10px;
   flex-direction: column;
-  background-color: #FAF7F2;
-border: solid 1px lightgrey;
+  background-color: #faf7f2;
+  border: solid 1px lightgrey;
   width: 60%;
 }
 
@@ -424,21 +392,21 @@ border: solid 1px lightgrey;
 
 /* Menü Seçenekler*/
 
-.mainmenu{
-width: 100%;
-height: 100%;
-background-color:"#FAF7F2"
+.mainmenu {
+  width: 100%;
+  height: 100%;
+  background-color: "#FAF7F2";
 }
-
 
 .menu-body {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
   padding: 3rem;
-  background-color: #FAF7F2;
+  background-color: #faf7f2;
   max-width: 100%;
-
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 .menu-header {
@@ -447,59 +415,74 @@ background-color:"#FAF7F2"
   color: white;
   display: flex;
   flex-direction: column;
-  background-color: #CE2829;
-font-family: "Barlow";
+  background-color: #ce2829;
+  font-family: "Barlow";
 }
 
-
-
-.subtitle span{
+.subtitle span {
   display: flex !important;
   flex-direction: row !important;
   gap: 1rem !important ;
-  justify-content: space-between !important
+  justify-content: space-between !important;
 }
-
 
 /* Footer Css*/
 
-.footermain{
-  background-color:#161616;
+.footermain {
+  background-color: #161616;
   display: flex;
-  color:white;
+  color: white;
   font-family: "Roboto";
   padding: 2rem;
   flex-direction: row;
   gap: 5rem;
-justify-content: center;
+  justify-content: center;
 }
 
-.a{
+.a {
   display: flex;
-  gap:1rem;
+  gap: 1rem;
   flex-direction: column;
 }
 
-.b{
+.b {
   display: flex;
   flex-direction: column;
   margin-top: 5rem;
   font-family: "Barlow";
 }
 
-.c{
+.c {
   display: flex;
   margin-top: 5rem;
   flex-direction: column;
 }
 
-
-.imgs{
-width: 110px;
-height: 110px;
-
+.imgs {
+  width: 110px;
+  height: 110px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
+@keyframes scroll {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-500px) scale(1);
+  }
+}
 
-/* Animasyon deneme */
+.pizzaicon {
+  animation: scroll 3s ease-in-out infinite;
+}
+
+.maindiv {
+  position: relative;
+  overflow-x: hidden;
+}

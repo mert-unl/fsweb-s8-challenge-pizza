@@ -12,7 +12,9 @@ export default function Success() {
 
     
         <span className="s1y">lezzetin yolda</span>
+        
         <span className="s2t">SİPARİŞ ALINDI</span>
+        <h4>{orderData?.isim}</h4>
 
         <div style={{ width:"25%",color:"white",borderBottom: "1px solid white", margin:"10px 0"}}></div>
 

@@ -16,10 +16,16 @@ describe("Ana Sayfa kontrolleri", () => {
     cy.get('[data-cy="acıktım"]').should("be.visible");
   });
 
-  it("ACIKTIM butonuna tıklandığında sipariş sayfasına yönlendiriliyor", () => {
+  it("ACIKTIM butonuna tıklandığında Menü sayfasına yönlendiriliyor", () => {
     cy.get('[data-cy="acıktım"]').click();
+    cy.url().should("include", "/menu");
+  });
+
+  it("Sipariş ver butonuna tıklandığında Sipariş oluştur sayfasına yönlendiriliyor", () => {
+    cy.get('[data-cy="homesiparis"]').click();
     cy.url().should("include", "/orderpizza");
   });
+
 });
 
 describe("Pizza testleri", () => {
@@ -27,16 +33,17 @@ describe("Pizza testleri", () => {
     cy.visit("http://localhost:5173/");
     cy.get('[data-cy="acıktım"]').should("be.visible");
     cy.get('[data-cy="acıktım"]').click();
+    cy.get('[data-cy="1"]').scrollIntoView().click();
   });
 
   it("Buton ilk olarak disabled", () => {
     cy.get('[data-cy="submit"]').should("be.disabled");
-  });
+  }); 
 
   it("Tüm malzemeler ve özellikler seçilip 'Success' sayfasına yönlendiriyor", () => {
-    cy.get('[data-cy="orta"]').click();
+    cy.get('[data-cy="L"]').click();
     cy.get('[data-cy="hamur"]').click();
-    cy.contains("İnce Hamur").click();
+    cy.contains("Extra Kalın").click();
     /* 5 adet seçiliyor*/
     cy.contains("Zeytin").click();
     cy.contains("Sosis").click();
@@ -49,7 +56,7 @@ describe("Pizza testleri", () => {
     cy.get('[data-cy="siparisnotu"]').type("Zile basmayın lütfen!");
     cy.get('[data-cy="submit"]').should("be.enabled");
     cy.get('[data-cy="submit"]').click();
-    cy.contains("TEBRİKLER!");
+    cy.contains("SİPARİŞ ALINDI");
   });
 
   it("İsim 3 harften az yazılırsa hata mesajı veriyor.", () => {
@@ -73,7 +80,7 @@ describe("Pizza testleri", () => {
     cy.contains("Sosis").click();
     cy.contains("Soğan").click();
     cy.contains("Domates").click();
-    cy.contains("Pepperoni").click();
+    cy.contains("Mısır").click();
     cy.contains("Tavuk Izgara").click();
     cy.contains("Kanada Jambonu").click();
     cy.contains("Sarımsak").click();
@@ -94,9 +101,9 @@ describe("Pizza testleri", () => {
   });
 
   it("Sipariş notu zorunlu olmadığı için eğer her şey doğruysa notsuz sipariş verilebiliyor.", () => {
-    cy.get('[data-cy="büyük"]').click();
+    cy.get('[data-cy="M"]').click();
     cy.get('[data-cy="hamur"]').click();
-    cy.contains("Kalın Hamur").click();
+    cy.contains("Süpper İnce").click();
     cy.contains("Zeytin").click();
     cy.contains("Sosis").click();
     cy.contains("Soğan").click();
@@ -105,15 +112,15 @@ describe("Pizza testleri", () => {
     cy.get('[data-cy="adres"]').type("Sur Yapı Antalya Türkiye");
     cy.get('[data-cy="submit"]').should("be.enabled");
     cy.get('[data-cy="submit"]').click();
-    cy.contains("TEBRİKLER!");
+    cy.contains("SİPARİŞ ALINDI");
   });
 
   it("4 adet pizza (3 kez tıklanıyor) ve 5 adet malzeme seçilince doğru fiyatı veriyor ve sipariş veriliyor.", () => {
-    cy.get('[data-cy="küçük"]').click();
+    cy.get('[data-cy="S"]').click();
     cy.get('[data-cy="hamur"]').click();
-    cy.contains("Orta Hamur").click();
+    cy.contains("Orta").click();
     cy.contains("Domates").click();
-    cy.contains("Pepperoni").click();
+    cy.contains("Soğan").click();
     cy.contains("Tavuk Izgara").click();
     cy.contains("Biber").click();
     cy.contains("Ananas").click();
@@ -122,10 +129,32 @@ describe("Pizza testleri", () => {
 
     Cypress._.times(3, () => cy.get('[data-cy="arttır"]').click());
     cy.contains("25₺");
-    cy.contains("442₺");
+    cy.contains("540₺");
 
     cy.get('[data-cy="submit"]').should("be.enabled");
     cy.get('[data-cy="submit"]').click();
-    cy.contains("TEBRİKLER!");
+    cy.contains("SİPARİŞ ALINDI");
   });
+
+  it("Veriler en baştan itibaren dinamik olarak geliyor", () => {
+    cy.contains("Grid Sistem Pepperoni")
+    cy.contains("(178)")
+    cy.get('[data-cy="M"]').click();
+    cy.get('[data-cy="hamur"]').click();
+    cy.contains("Süpper İnce").click();
+    cy.contains("Ananas").click();
+    cy.contains("Sosis").click();
+    cy.contains("Mısır").click();
+    cy.contains("Zeytin").click();
+    cy.get('[data-cy="isim"]').type("Mert Ünal");
+    cy.get('[data-cy="adres"]').type("Sur Yapı Antalya Türkiye");
+    cy.get('[data-cy="siparisnotu"]').type("Lütfen Zile Basmayın!");
+    Cypress._.times(3, () => cy.get('[data-cy="arttır"]').click());
+    cy.get('[data-cy="submit"]').should("be.enabled").click(),
+    cy.contains("Mert Ünal")
+    cy.contains("Grid Sistem Pepperoni")
+    cy.contains("Ek Malzemeler: Ananas, Sosis, Mısır, Zeytin")
+  });
+
+
 });
