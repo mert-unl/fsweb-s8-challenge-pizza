@@ -234,8 +234,7 @@ export default function OrderPizza() {
 
   function SizeSelector() {
     const sizes = ["S", "M", "L"];
-    const selectedSize = formData.boyut; // Form state'inden güncel boyutu al
-
+    const selectedSize = formData.boyut;
     const handleClick = (size) => {
       setFormData((prev) => ({
         ...prev,

@@ -25,7 +25,7 @@ export default function Menu() {
   };
 
 
-  /**Effekt denem*/
+  // Effekt deneme
   useEffect(() => {
     AOS.init({
       duration: 400,
@@ -199,6 +199,7 @@ export default function Menu() {
 
   return (
     <div className="mainmenu">
+      
       <header className="menu-header">
         <img src="../images/iteration-1-images/logo.svg" />
         <span

@@ -117,7 +117,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="home">
+      <header className="home">
         <img src="../images/iteration-1-images/logo.svg" />
 
         <div>
@@ -138,9 +138,12 @@ export default function Home() {
         <Button onClick={menu} data-cy="acıktım" className="homebutton">
           ACIKTIM
         </Button>
-      </div>
+      </header>
 
-      <div
+ <body>
+
+      {/*Üst Butonlar */}
+      <section
         style={{
           padding: "1rem",
           display: "flex",
@@ -173,9 +176,12 @@ export default function Home() {
           src={"../images/iteration-2-images/icons/6.svg"}
           isim={"Gazlı İçecek"}
         />
-      </div>
+      </section>
 
-      <div
+
+
+      {/*Üçlü Card */}
+      <section
         style={{
           display: "flex",
           justifyContent: "center",
@@ -227,9 +233,12 @@ export default function Home() {
             color1={"black"}
           />
         </div>
-      </div>
+      </section>
 
-      <div
+
+      {/*Ara Yazılar */}
+
+      <section
         style={{
           display: "flex",
           justifyContent: "center",
@@ -245,9 +254,12 @@ export default function Home() {
           en çok paketlenen menüler
         </span>
         <h1 style={{fontWeight:"600"}}>Acıktıran Kodlara Doyuran Lezzetler</h1>
-      </div>
+      </section>
 
-      <div
+
+
+       {/*Alttaki Butonlar*/}
+      <section
         style={{
           padding: "1rem",
           display: "flex",
@@ -283,8 +295,12 @@ export default function Home() {
           src={"../images/iteration-2-images/icons/6.svg"}
           isim={"Soft drinks"}
         />
-      </div>
-      <div
+      </section>
+
+
+       {/*En alt pizza kartları*/}
+
+      <section
         style={{
           padding: "1rem",
           display: "flex",
@@ -310,7 +326,11 @@ export default function Home() {
           src={"../images/iteration-2-images/pictures/food-3.png"}
           yazi={"useEffect Tavuklu Burger"}
         />
-      </div>
+      </section>
+
+      </body>
+
+
     </div>
   );
 }
