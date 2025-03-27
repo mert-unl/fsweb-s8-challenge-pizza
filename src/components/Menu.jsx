@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import {Card,CardText,Button, CardBody, CardSubtitle, CardTitle, CardImg } from "reactstrap"
+import {Card,CardText,Button, CardBody, CardSubtitle, CardTitle, CardImg} from "reactstrap"
+import { NavLink } from "react-router-dom/cjs/react-router-dom";
 
 
 export default function Menu(){
@@ -127,18 +128,19 @@ export default function Menu(){
 
     function MenuCards({onClick, src, isim,yazi ,rating, yorum ,fiyat }) {
       return (
-        <Card
+
+
+      <Card
           style={{
             width: "350px",
-            height: "450px",
-            backgroundColor:"#FAF7F2",
+            backgroundColor:"#ffffff",
             padding:"1rem",
             borderColor:"white", 
             borderRadius: "12px",
           }}
         >
           <CardBody>
-            <CardImg src={src} />
+            <CardImg style={{minWidth:"200px",minHeight:"150px"}} src={src} />
             <CardTitle style={{fontWeight:"600",fontSize:"1.1rem",textAlign:"start",marginTop:"1rem",fontFamily:"Barlow"}}>
             {isim}
             </CardTitle>
@@ -146,20 +148,21 @@ export default function Menu(){
               style={{
                 textAlign:"start",
                 display: "flex",
+                justifyContent:"space-between",
                 flexDirection: "row",
               }}
             >
               <span style={{fontWeight:"500"}}>{rating}</span>
-              <span style={{fontWeight:"500",marginLeft:"6rem"}}>({yorum})</span>
+              <span style={{fontWeight:"500"}}>({yorum})</span>
               <span style={{marginLeft:"2rem",color:"black",fontWeight:"bold"}}>{fiyat}₺</span>
             </div>
-<CardText>
+<CardText style={{fontSize:"0.9rem", alignItems:"center",display:"flex",justifyContent:"center"}}>
 
   {yazi}
 </CardText>
 
           </CardBody>
-          <Button onClick={onClick}></Button>
+          <Button  className="homebutton" onClick={onClick}>Sipariş Ver</Button>
         </Card>
       );
     }
@@ -178,47 +181,31 @@ export default function Menu(){
 
   <div className="mainmenu">
 <header className="menu-header">
- <h1>Pizza Seçenekleri</h1>
- <h3>Menü</h3>
+<img src="../images/iteration-1-images/logo.svg" />
+ <span
+            style={{
+              fontFamily: "Satisfy",
+              marginTop: "2rem",
+              color: "#fdc913",
+              fontSize: "2rem",
+            }}
+          >
+Menü          </span>
+
+ <nav className="nav" style={{justifyContent:"center"}}>
+            <NavLink to="/" style={{ color: "white" }}>Anasayfa</NavLink>
+            <span>-</span>
+            <NavLink to="/menu" style={{ color: "#fdc913" }} >Seçenekler</NavLink>
+            <span>-</span>
+
+            <NavLink to="/orderpizza">
+              <span style={{ color: "white" }}>Sipariş Oluştur</span>
+            </NavLink>
+          </nav>
+
 </header>
 
 <body className="menu-body">
-
-{/*
-{pizzaList.map((pizza,index)=>{
-return(
-<Card
-  style={{
-    width: '18rem'
-  }}
->
-  <img
-    alt={pizza.adı}
-    src={`https://foodish-api.com/images/pizza/pizza${index+1}.jpg`}
-    />
-  <CardBody>
-    <CardTitle tag="h5">
-    {pizza.adı}
-    </CardTitle>
-    
-    <CardSubtitle
-      className="subtitle"
-      tag="h6"
-    >
-      <span>{pizza.rating}</span> 
-      <span>({pizza.yorum})
-      </span>   
-     </CardSubtitle>
-  
-    <CardText>
-       {pizza.icerigi}
-    </CardText>
-    <Button  onClick={() => onClick(pizza)}>
-      {pizza.fiyatı} ₺
-    </Button>
-  </CardBody>
-</Card>
-*/}
 
 {pizzaList.map((pizza, index) => {
   return (

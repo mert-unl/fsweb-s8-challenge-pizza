@@ -22,8 +22,11 @@ import Footer from "./Footer";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function OrderPizza() {
+  const location = useLocation();
+  const orderData = location.state?.orderData;
+
   const initialValue = {
-    pizzaname:"Position Absolute Acı Pizza",
+    pizzaname:`${ orderData?.adı || "Position Absolute Acı Pizza"}`,
     boyut: "",
     hamur: "",
     malzemeler: [],
@@ -31,15 +34,14 @@ export default function OrderPizza() {
     adres: "",
     siparisnotu: "",
     adet: 1,
-    basePrice: 85.5,
+    basePrice: orderData?.fiyatı || 85.50,
     extraPrice: 0,
-    totalPrice: 85.5,
+    totalPrice: orderData?.fiyatı || 85.50,
   };
 
   const [formData, setFormData] = useState(initialValue);
 
-  const location = useLocation();
-  const orderData = location.state?.orderData;
+
   // Adet değiştiriciler
 
   const arttir = () => {
@@ -220,6 +222,38 @@ export default function OrderPizza() {
     console.log(errors);
   }, [formData]);
 
+  function SizeSelector() {
+    const sizes = ["S", "M", "L"];
+    const selectedSize = formData.boyut; // Form state'inden güncel boyutu al
+  
+    const handleClick = (size) => {
+      setFormData((prev) => ({
+        ...prev,
+        boyut: size,
+      }));
+    };
+  
+    return (
+      <div className="sizeCover">
+        {sizes.map((size) => (
+          <button
+            key={size}
+            id={size}
+            data-cy={size}
+            data-selected={selectedSize === size}
+            name="boyut"
+            value={size}
+            onClick={() => handleClick(size)}
+            className="size-button"
+          >
+            {size}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  
   return (
     <div className="maindiv">
       <header>
@@ -258,94 +292,20 @@ export default function OrderPizza() {
       </div>
 
       <div className="dis">
+
         {/*Seçimler Section */}
         <section className="secimler">
+
           {/*Boyut Section */}
           <section className="boyutSec">
             <p className="titles">
               Boyut Seç<span style={{ color: "red" }}> *</span>
             </p>
-
             <div className="boyutlar">
-              {/*
-              <Label for="küçük">
-                <Input
-                  onChange={onHandleChange}
-                  id="küçük"
-                  type="radio"
-                  name="boyut"
-                  data-cy="küçük"
-                  value="küçük"
-                />{" "}
-                Küçük
-              </Label>
-
-              <Label for="orta">
-                <Input
-                  onChange={onHandleChange}
-                  id="orta"
-                  data-cy="orta"
-                  type="radio"
-                  name="boyut"
-                  value="orta"
-                />{" "}
-                Orta
-              </Label>
-
-              <Label for="büyük">
-                <Input
-                before="a"
-                  onChange={onHandleChange}
-                  id="büyük"
-                  type="radio"
-                  data-cy="büyük"
-                  name="boyut"
-                  value="büyük"
-                />{" "}
-                Büyük
-              </Label>
-*/}
-              <Button
-                id="S"
-                data-cy="S"
-                type="radio"
-                name="boyut"
-                value="S"
-                onClick={onHandleChange}
-                className="boyut"
-                style={{ borderRadius: "150%" }}
-              >
-                S
-              </Button>
-
-              <Button
-                id="M"
-                data-cy="M"
-                type="radio"
-                name="boyut"
-                value="M"
-                onClick={onHandleChange}
-                className="boyut"
-                style={{ borderRadius: "150%" }}
-              >
-                M
-              </Button>
-
-              <Button
-                id="L"
-                data-cy="L"
-                type="radio"
-                name="boyut"
-                value="L"
-                onClick={onHandleChange}
-                className="boyut"
-                style={{ borderRadius: "150%" }}
-              >
-                L
-              </Button>
-
+              <SizeSelector/>
             </div>
           </section>
+
 
           {/*Hamur Section */}
           <section>
@@ -353,12 +313,12 @@ export default function OrderPizza() {
               Hamur Seç<span style={{ color: "red" }}> *</span>
             </p>
 
-            <div className="hamur">
-              <Dropdown data-cy="hamur" isOpen={dropdownOpen} toggle={toggle}>
-                <DropdownToggle caret> {selectedHamur}</DropdownToggle>
+              <Dropdown  data-cy="hamur" isOpen={dropdownOpen} toggle={toggle}>
+                <DropdownToggle  className="hmr" caret> {selectedHamur}</DropdownToggle>
 
-                <DropdownMenu>
-                <DropdownItem
+                <DropdownMenu >
+                <DropdownItem 
+                
                     onClick={() => {
                       setSelectedHamur("Süpper İnce");
                       onHandleChange({
@@ -426,11 +386,8 @@ export default function OrderPizza() {
                   >
                     Extra Kalın
                   </DropdownItem>
-
-
                 </DropdownMenu>
               </Dropdown>
-            </div>
           </section>
         </section>
 
@@ -542,7 +499,7 @@ export default function OrderPizza() {
         {/*Sipariş Fiyatı*/}
         <section className="siparisbottom">
           <ButtonGroup>
-            <Button onClick={azalt} data-cy="azalt" className="btn">
+            <Button onClick={azalt} data-cy="azalt" className="adetbtn">
               <b>-</b>
             </Button>
             <span
@@ -551,7 +508,7 @@ export default function OrderPizza() {
             >
               <b>{formData.adet}</b>
             </span>
-            <Button onClick={arttir} data-cy="arttır" className="btn">
+            <Button onClick={arttir} data-cy="arttır" className="adetbtn">
             <b>+</b>
             </Button>
           </ButtonGroup>

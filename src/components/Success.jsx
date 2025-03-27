@@ -16,7 +16,7 @@ export default function Success() {
 
         <div style={{ width:"25%",color:"white",borderBottom: "1px solid white", margin:"10px 0"}}></div>
 
-      <h5 style={{marginTop:"20px"}}>{orderData?.pizzaname}</h5>
+      <h5 style={{marginTop:"20px"}}>{orderData?.pizzaname  || "PosiaAbsolute Acı Pizza"}</h5>
 
       <div className="icerik">
         <p>

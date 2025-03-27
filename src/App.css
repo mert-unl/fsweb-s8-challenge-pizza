@@ -103,16 +103,18 @@ font-weight: 300;
   background-color: #292929 !important;
 }
 
-.homebutton {
-  border: 5px solid white !important;
-  padding: 1rem 5rem !important;
-  width: 10rem !important;
-  border-radius: 2rem !important;
-  font-family: "Barlow" !important;
 
+ 
+.homebutton {
+  background-color:#fdc913 !important;
   color: black !important;
-  font-weight: bold !important;
-  font-size: 0.9rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  font-family: "Barlow" !important;
+  border: solid 1px #fdc913 !important;
+  border-radius: 2rem !important;
+  padding: 1rem 5rem !important;
+
 }
 
 
@@ -231,27 +233,73 @@ header {
 .secimler {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 14rem;
+  justify-content: start;
 }
 
-.boyutlar {
+.sizeCover {
   display: flex;
   gap:1rem;
   flex-direction: row;
 }
 
-.boyut::before{
-  color: rgb(0, 0, 0)  !important; 
+.yellowButton{
+  background-color: #fdc913;
+  color:white
 }
 
-.boyut:hover{
-background-color: #fdc913  !important; 
-  color: rgb(255, 255, 255)  !important; 
+.size-button {
+  width: 60px;
+  height: 60px;
+  color:#5F5F5F;
+  border-radius: 50%;
+  border: #FAF7F2;
+  background-color: #FAF7F2;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
-.boyut::after{
-  color: blue  !important; 
+.size-button[data-selected="true"] {
+  background-color:#FDC913 ;
+  border-color: #ffcc80;
 }
+
+
+.size-button[data-selected="true"]::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.size-button:hover {
+  background-color:  #ffecb3;
+}
+
+
+
+
+.hmr{
+  background-color:#FAF7F2 !important;
+  color:#5f5f5f !important;
+  border-color: #FAF7F2 !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  width: 14rem !important;
+  height:  3rem !important;
+}
+
+
+
 
 
 .malzemeler {
@@ -273,32 +321,25 @@ background-color: #fdc913  !important;
   align-items: center;
 }
 
-input[type="radio"] {
-  border: 2px solid #8f8f8f !important;
-  width: 20px !important;
-  height: 20px !important;
-  margin-right: 8px !important;
-  cursor: pointer;
-}
+
 
 input[type="checkbox"] {
+  appearance: none; 
   border: 1px solid #ececec !important;
   width: 50px !important;
   height: 50px !important;
   margin-right: 8px !important;
-  accent-color: #292929 !important;
-   background-color: #FAF7F2;
+  background-color: #FAF7F2; 
   cursor: pointer;
+  display: inline-block;
+  position: relative;
 }
-
-input[type="radio"]:hover,
 input[type="checkbox"]:hover {
   border-color: #525252 !important;
   background-color: rgb(255, 238, 184) !important;
   cursor: pointer;
 }
 
-input[type="radio"]:checked,
 input[type="checkbox"]:checked {
   background-color: #fdc913 !important;
   border-color: #fdc913 !important;
@@ -309,8 +350,19 @@ input[type="checkbox"]:checked {
 
 }
 
+input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 11px;
+  width: 12px;
+  height: 22px;
+  border: solid black; /* Tik rengi siyah */
+  border-width: 0 6px 4px 0;
+  transform: rotate(45deg);
+}
 
-.btn {
+.adetbtn {
   background-color: #fdc913 !important;
   color: #292929 !important;
   border: #fdc913 !important;
@@ -381,20 +433,25 @@ background-color:"#FAF7F2"
 
 .menu-body {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
   gap: 1rem;
-  padding: 1rem;
-  max-width: 90%;
-  margin: 0 auto;
+  padding: 3rem;
+  background-color: #FAF7F2;
+  max-width: 100%;
+
 }
 
 .menu-header {
   text-align: center;
   padding: 2rem;
   color: white;
+  display: flex;
+  flex-direction: column;
   background-color: #CE2829;
-font-family: "Satisfy";
-  margin-bottom: 2rem;
+font-family: "Barlow";
 }
+
+
 
 .subtitle span{
   display: flex !important;
@@ -445,3 +502,4 @@ height: 110px;
 
 
 
+/* Animasyon deneme */
